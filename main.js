@@ -1,3 +1,5 @@
+// Author: technetlk@gmail.com (https://github.com/technet/brackets.coffeescriptcompiler, http://tutewall.com)
+
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50, */
 /*global define, brackets, $, _ */
 

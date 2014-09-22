@@ -13,10 +13,9 @@ _Compiled Javascript file_
 
 Just create CoffeeScript files as usual with the extension of `.coffee` and this extension will monitor any modifications of those files and output compiled Javascript file when you save the original file. By defult javascript file be created at the same location with same name with `.js` extension. If you want to output the file into different location use the comment hint as follows. This should be at top of the file before any non empty line. (Didn't want to parse entire file looking for this option as it is unnecessary). `out` path is always relative to CoffeeScript file.
 
-- __Ex 1 (store in one level above)__
+__Ex 1 (store in one level above)__
 
-
-    #   cfcoptions : { "out": "../js/"   }
+    #   cfcoptions : { "out": "../js/"   }    
     
 This will generate the javascript file in `js` folder which according to following folder structure.
 
@@ -27,8 +26,7 @@ This will generate the javascript file in `js` folder which according to followi
             |---test.js
 
 
-- __Ex 2 (store in same folder with different name)__
-
+__Ex 2 (store in same folder with different name)__
 
     #   cfcoptions : { "out": "test2.js"   }
     
@@ -40,8 +38,7 @@ This will generate the javascript file in `js` folder which according to followi
             |---test2.js
 
 
-- __Ex 3 (store in sub folder)__
-
+__Ex 3 (store in sub folder)__
 
     #   cfcoptions : { "out": "js/test2.js"   }
     

@@ -3,6 +3,8 @@ Brackets CoffeeScript Auto Compiler
 
 Another extension from Technet which compiles CoffeeScript files (files with `.coffee` extension) and generate Javascript file automatically when file(s) are modified and saved.
 
+> This will use [CoffeeScript version 1.8.0](http://coffeescript.org/) - [https://github.com/jashkenas/coffeescript](https://github.com/jashkenas/coffeescript)
+
 _CoffeeScript file_
 ![CoffeeScript File](screenshots/screenshot01.png)
 

@@ -1,0 +1,19 @@
+{
+    "name": "technet.coffeescriptcompiler",
+    "title": "Automatically compiles CoffeeScript to JavaScript when file is saved",
+    "description": "This extension will compile CoffeeScript files automatically when file is saved. js file will be created in the given folder",
+    "homepage": "https://github.com/technet/brackets.coffeescriptcompiler",
+    "version": "0.1.0",
+    "author": "Technet <technetlk@gmail.com> (http://tutewall.com)",
+    "license": "MIT",
+    "engines": {
+        "brackets": ">=0.40.0"
+    },
+   "keywords": [
+       "coffee-script",
+       "coffeescript",
+       "coffeescript compier",
+       "compiler",
+       "coffeescript auto compiler",
+   ]    
+}

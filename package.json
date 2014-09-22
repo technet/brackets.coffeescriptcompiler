@@ -1,6 +1,6 @@
 {
     "name": "technet.coffeescriptcompiler",
-    "title": "Automatically compiles CoffeeScript to JavaScript when file is saved",
+    "title": "CoffeeScript Auto Compiler",
     "description": "This extension will compile CoffeeScript files automatically when file is saved. js file will be created in the given folder",
     "homepage": "https://github.com/technet/brackets.coffeescriptcompiler",
     "version": "0.1.0",

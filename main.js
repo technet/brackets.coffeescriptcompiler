@@ -1,7 +1,7 @@
 // Author: technetlk@gmail.com (https://github.com/technet/brackets.coffeescriptcompiler, http://tutewall.com)
 
-/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50, */
-/*global define, brackets, $, _ */
+/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
+/*global define, brackets, $ */
 
 define(function (require, exports, module) {
     "use strict";
@@ -28,7 +28,8 @@ define(function (require, exports, module) {
     function writeJSFile(fileData) {
 
         var destFile = FileSystem.getFileForPath(fileData.destFilePath);
-        FileUtils.writeText(destFile, fileData.jsCode);
+        FileUtils.writeText(destFile, fileData.jsCode, true);
+        // Possible Issue: https://github.com/adobe/brackets/issues/8115
     }
 
     function compile(fileData) {

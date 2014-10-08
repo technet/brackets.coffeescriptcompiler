@@ -9,12 +9,13 @@ define(function (require, exports, module) {
     var CF_DOMAIN_NAME  = "technet.csdomain",
         DOMAIN_PATH     = "node/cfdomain",
         CF_VERSION      = "getVersion",
-        CF_COMPILE      = "compile";
+        CF_COMPILE      = "compile",
+        CFCOPTION_FILE  = "cfcoptions.json";
     
     var ExtensionUtils  = brackets.getModule("utils/ExtensionUtils"),
-        DocumentManager = brackets.getModule('document/DocumentManager'),
-        FileUtils       = brackets.getModule('file/FileUtils'),
-        FileSystem      = brackets.getModule('filesystem/FileSystem'),
+        DocumentManager = brackets.getModule("document/DocumentManager"),
+        FileUtils       = brackets.getModule("file/FileUtils"),
+        FileSystem      = brackets.getModule("filesystem/FileSystem"),
         AppInit         = brackets.getModule("utils/AppInit"),
         NodeDomain      = brackets.getModule("utils/NodeDomain");
     
@@ -23,6 +24,9 @@ define(function (require, exports, module) {
 
     var REGX_CSOPTIONS_TAG  = /cfcoptions/i,
         REGX_CSOPTIONS      = /\{.*\}/;
+
+    var cfcOptionFiles      = {};       // This will keep cfcoptions.json path stored instead of realoading each time,
+                                        // and of the modification is done to this file it will be automatically loaded.
 
 
     function writeJSFile(fileData) {
@@ -91,14 +95,31 @@ define(function (require, exports, module) {
                 var optionObject = JSON.parse(optionString);
                 setOptions(optionObject, fileData);
 
-            } catch (ex) {
-                setDefaultOptions(fileData);
-            }
+                return true;        // found options from the file itself
 
-        } else {
-            setDefaultOptions(fileData);
+            } catch (ex) {
+            }
         }
 
+        return false;   // Didn't find any options in the file.
+    }
+
+    function getOptionsFromFile(fileData) {
+
+        var optionFile = fileData.sourceFolder + CFCOPTION_FILE;
+        // Try accessing the file
+        try {
+            if (FileSystem.getFileForPath(optionFile).exists()) {
+                var optionsData = FileUtils.readAsText(optionFile);
+                if (optionsData !== undefined && optionsData !== null) {
+                    optionsData = optionsData.trim();
+                    var optionObject = JSON.parse(optionsData);
+                    setOptions(optionObject, fileData);
+                }
+            }
+        } catch (ex) {
+            // No file or some other error
+        }
     }
 
     function compileAndSave(document) {
@@ -113,7 +134,9 @@ define(function (require, exports, module) {
         fileData.destFilePath = FileUtils.getFilenameWithoutExtension(fileData.sourcefilePath) + ".js";
         fileData.fileName = FileUtils.getBaseName(fileData.sourcefilePath);
 
-        getOptionsFromText(fileData, document);
+        if (!getOptionsFromText(fileData, document)) {   // We found options from the file so give it priority, else try to find option file
+            getOptionsFromFile(fileData);
+        }
 
         compile(fileData);
     }
@@ -127,8 +150,6 @@ define(function (require, exports, module) {
             compileAndSave(document);
         }
     }
-                                         
-
 
     AppInit.appReady(function () {
 
